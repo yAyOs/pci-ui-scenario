@@ -71,6 +71,16 @@ const columnDefs: ColDef[] = [
 ];
 
 const NeoGrid = (): JSX.Element => {
+
+  const defaultColDef = useMemo<ColDef>(() => {
+    return {
+      editable: true,
+      flex: 1,
+      minWidth: 200,
+      resizable: true,
+    };
+  }, []);
+
   return (
     <div className="ag-theme-alpine" style={{ height: '90vh', width: '99%' }}>
       <h1>Near-Earth Object Overview</h1>
@@ -78,6 +88,9 @@ const NeoGrid = (): JSX.Element => {
         rowData={data}
         columnDefs={columnDefs}
         rowGroupPanelShow={'always'}
+        defaultColDef={defaultColDef}
+        enableRangeSelection={true}
+        copyHeadersToClipboard={true}
       />
     </div>
   );
