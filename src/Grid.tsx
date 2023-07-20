@@ -1,9 +1,10 @@
-import React, {useMemo} from "react";
+import React, {useMemo, useRef} from "react";
 import { AgGridReact } from "ag-grid-react";
-import { ColDef } from "ag-grid-community";
+import { ColDef, GridApi } from "ag-grid-community";
 import data from "./near-earth-asteroids.json";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
+import { hover } from "@testing-library/user-event/dist/hover";
 
 const columnDefs: ColDef[] = [
   { field: "designation", headerName: "Designation", sortable: true, 
@@ -72,19 +73,47 @@ const columnDefs: ColDef[] = [
 
 const NeoGrid = (): JSX.Element => {
 
+  const gridRef = useRef<AgGridReact>(null);
   const defaultColDef = useMemo<ColDef>(() => {
     return {
-      editable: true,
+      editable: false,
       flex: 1,
       minWidth: 200,
-      resizable: true,
     };
   }, []);
 
+  const resetDefaultTable = () => {
+    gridRef.current!.api.setFilterModel(null);
+    gridRef.current!.columnApi.applyColumnState({
+      defaultState: { sort: null },
+    })
+  }
+
   return (
-    <div className="ag-theme-alpine" style={{ height: '90vh', width: '99%' }}>
-      <h1>Near-Earth Object Overview</h1>
+    <div className="ag-theme-alpine" style={{ height: '85vh', width: '99%' }}>
+      <div style={{
+        display: 'flex',
+        alignItems: 'center'
+      }}>
+        <h1 style={{color: '#52657d'}}>Near-Earth Object Overview</h1>
+        <button 
+          style={{
+            border: 'solid 1px #dbdbdb',
+            background: '#f3f3f3',
+            color: '#484141',
+            width: 'auto',
+            height: '40px',
+            fontSize: '11pt',
+            padding: '10px',
+            margin: '0 0 0 15px',
+            borderRadius: '15px'
+          }}
+          onClick={resetDefaultTable}>
+            Clear Filters and Sorters
+        </button>
+      </div>
       <AgGridReact
+        ref={gridRef}
         rowData={data}
         columnDefs={columnDefs}
         rowGroupPanelShow={'always'}
