@@ -1,0 +1,31 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: #f0f3f3;
+}
+.Container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.HeaderContainer {
+    display: flex;
+    align-items: center;
+}
+
+.headerTitle {
+    color: #52657d
+}
+.headerContainerClearBtn {
+    border: solid 1px #dbdbdb;
+    background: #f3f3f3;
+    color: #484141;
+    width: auto;
+    height: 40px;
+    font-size: 11pt;
+    padding: 10px;
+    margin: 0 0 0 15px;
+    border-radius: 15px
+}
