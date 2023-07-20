@@ -18,7 +18,14 @@ const columnDefs: ColDef[] = [
   { field: "q_au_2", headerName: "Q (au)" },
   { field: "period_yr", headerName: "Period (yr)" },
   { field: "i_deg", headerName: "Inclination (deg)" },
-  { field: "pha", headerName: "Potentially Hazardous" },
+  { field: "pha", headerName: "Potentially Hazardous",
+    cellRenderer: (data: {value: string}) => {
+      let label = '';
+      if (data.value && data.value === 'N') label = 'No'
+      if (data.value && data.value === 'Y') label = 'Yes'
+      return label
+    }
+  },
   { field: "orbit_class", headerName: "Orbit Class", enableRowGroup: true, },
 ];
 
