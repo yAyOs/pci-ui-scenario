@@ -6,7 +6,12 @@ import "ag-grid-community/styles/ag-theme-alpine.css";
 
 const columnDefs: ColDef[] = [
   { field: "designation", headerName: "Designation" },
-  { field: "discovery_date", headerName: "Discovery Date" },
+  { field: "discovery_date", headerName: "Discovery Date",
+    cellRenderer: (data: {value: string}) => {
+      // we receive the value of discovery date and give a shorter format
+      return data.value ? (new Date(data.value)).toLocaleDateString() : '';
+    }
+  },
   { field: "h_mag", headerName: "H (mag)" },
   { field: "moid_au", headerName: "MOID (au)" },
   { field: "q_au_1", headerName: "q (au)" },
